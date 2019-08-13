@@ -8,7 +8,7 @@ import tensorflow as tf
 class FeatureExtractor:
     def __init__(self):
         base_model = VGG16(weights='imagenet')
-        self.model = Model(inputs=base_model.input, outputs=base_model.get_layer('fc1').output)
+        self.model = Model(inputs=base_model.input, outputs=base_model.get_layer('fc1').output)  #FC1 as the output feature
         self.graph = tf.get_default_graph()
 
     def extract(self, img):  # img is from PIL.Image.open(path) or keras.preprocessing.image.load_img(path)
@@ -20,4 +20,4 @@ class FeatureExtractor:
 
         with self.graph.as_default():
             feature = self.model.predict(x)[0]  # (1, 4096) -> (4096, )
-            return feature / np.linalg.norm(feature)  # Normalize
+            return feature / np.linalg.norm(feature)  # Normalize   标准化

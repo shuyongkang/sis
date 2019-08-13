@@ -1,3 +1,4 @@
+# extract feature and save
 import glob
 import os
 import pickle
